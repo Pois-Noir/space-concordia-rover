@@ -14,10 +14,8 @@ class Ps5Controller(Node):
         self.arm_pub = self.create_publisher(JointState, '/cmd_joint', 10)
         self.ps5 = pygame.joystick.Joystick(0)
         self.ps5.init()
-        self.create_timer(0.05, self.controller_callback)
 
     def controller_callback(self):
-        ps5 = self.ps5
         button_layout = {
             'left_x': ps5.get_axis(0),
             'left_y': -ps5.get_axis(1),
