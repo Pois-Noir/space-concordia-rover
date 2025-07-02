@@ -4,18 +4,25 @@ from sensor_msgs.msg import JointState
 from geometry_msgs.msg import Twist
 import pygame
 
-pygame.init()
-pygame.joystick.init()
 
 class Ps5Controller(Node):
     def __init__(self):
         super().__init__('ps5_node')
-        self.rover_pub = self.create_publisher(Twist, '/cmd_wheel', 10)
-        self.arm_pub = self.create_publisher(JointState, '/cmd_joint', 10)
+
+        pygame.init()
+        pygame.joystick.init()
+
         self.ps5 = pygame.joystick.Joystick(0)
         self.ps5.init()
 
+        self.rover_pub = self.create_publisher(Twist, '/cmd_wheel', 10)
+        self.arm_pub = self.create_publisher(JointState, '/cmd_joint', 10)
+
+        self.create_timer(0.05, self.controller_callback)
+
     def controller_callback(self):
+        ps5 = self.ps5
+        pygame.event.pump()
         button_layout = {
             'left_x': ps5.get_axis(0),
             'left_y': -ps5.get_axis(1),
@@ -62,7 +69,7 @@ class Ps5Controller(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    node = rclpy.create_node('ps5_controller')
+    node = Ps5Controller()
     rclpy.spin(node)
     node.destroy_node()
     rclpy.shutdown()
