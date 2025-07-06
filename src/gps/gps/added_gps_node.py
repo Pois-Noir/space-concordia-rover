@@ -7,7 +7,7 @@ class GPS(Node):
         super.__init__('added_gps_node')
         self.gps_pub = self.create_publisher(NavSatFix, 'added_gps', 10)
         self.create_timer(0.1, self.publish_gps)
-        
+
     def publish_gps(self):
         msg = NavSatFix()
         msg.latitude = 50.0
