@@ -5,7 +5,7 @@ from sensor_msgs.msg import NavSatFix
 class GPS(Node):
     def __init__(self):
         super().__init__('added_gps_node')
-        self.gps_pub = self.create_publisher(NavSatFix, 'added_gps', 10)
+        self.gps_pub = self.create_publisher(NavSatFix, self.get_name()+'_topic', 10)
         self.create_timer(0.1, self.publish_gps)
 
     def publish_gps(self):
