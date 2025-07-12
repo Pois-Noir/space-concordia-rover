@@ -29,7 +29,7 @@ plant, scene_graph = AddMultibodyPlantSceneGraph(
 )
 parser = Parser(plant)
 
-urdf_path = "./ceres.xacro"
+urdf_path = "../ceres.xacro"
 
 f = open(urdf_path, "r")
 robot_urdf_string = f.read()

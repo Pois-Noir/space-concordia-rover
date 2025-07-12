@@ -1,9 +1,0 @@
-#Request
-float64 in1
-float64 in2
-float64 in3
-float64 in4
-float64 in5
----
-#Response
-float
